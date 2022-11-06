@@ -2,8 +2,9 @@
 
 #SBATCH -p Lewis 
 #SBATCH -n 1
-#SBATCH -c 10
-#SBATCH --mem 16G
+#SBATCH -c 20
+#SBATCH --mem 32G
+#SBATCH --account=climerlab
 
 if [[ "$#" -ne 3 ]]
 then

@@ -2,7 +2,7 @@
 
 if [[ "$#" -lt 2 ]]
 then
-	echo "usage: main.sh granularity1 granularity2 [outputfolder] [lower_bound upper_bound]"
+	echo "usage: main.sh granularity1 granularity2 [lower_bound upper_bound] [outputfolder]"
 	exit 1
 fi
 computeN="false"
@@ -19,19 +19,19 @@ then
 	echo "total divisions = $N"
 	exit 0
 fi
-outputfolder="output"
+let lower=8000
+let upper=9000
 if [[ "$#" -ge 3 ]]
 then
-	outputfolder=$3
+	let lower=$3
+	let upper=$4
+fi
+outputfolder="output"
+if [[ "$#" -ge 5 ]]
+then
+	outputfolder=$5
 fi
 command mkdir $outputfolder
-let lower=10000000000
-let upper=10010000000
-if [[ "$#" -eq 5 ]]
-then
-	let lower=$4
-	let upper=$5
-fi
 let range=$(( upper - lower ))
 let step=$(( range / granularity1 ))
 echo "g1 $granularity1 g2 $granularity2 lower $lower upper $upper range $range step $step"

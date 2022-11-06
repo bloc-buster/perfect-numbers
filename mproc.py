@@ -1,28 +1,26 @@
 import multiprocessing
-import concurrent.futures
 import math
 import time
 import sys
 
-#PRIMES = [x for x in range(10000000000,10010000000)]
-
-def is_prime(n):
-	if n < 2:
-		return False
-	if n == 2:
-		return True
-	if n % 2 == 0:
-		return False
-	sqrt_n = int(math.floor(math.sqrt(n)))
-	for i in range(3, sqrt_n + 1, 2):
+def sum_of_divisors(n):
+	i = 2
+	summation = 1
+	while i < math.sqrt(n):
 		if n % i == 0:
-			return False
-	return True
+			summation += i
+			if n / i != i:
+				summation += int(n / i)
+		i += 1
+	return summation
 
-def print_primes(results, X):
+def is_perfect(n):
+	return sum_of_divisors(n) == n
+
+def print_results(results, X):
 	for y in range(0,len(results)):
 		if results[y] == True:
-			print(f'{X[y]} is prime = {results[y]}')
+			print(f'{X[y]} is perfect = {results[y]}')
 
 if __name__ == '__main__':
 	args = sys.argv
@@ -34,8 +32,8 @@ if __name__ == '__main__':
 	X = [n for n in range(lower, upper + 1)]
 	t1 = time.time()
 	p = multiprocessing.Pool(granularity)
-	results = p.map(is_prime, X)
-	print_primes(results, X)
+	results = p.map(is_perfect, X)
+	print_results(results, X)
 	p.close()
 	t2 = time.time()
 	print(f'compute time {t2 - t1} s')
