@@ -43,8 +43,8 @@ do
 	then
 		let y=$upper
 	fi
-	echo "running command intermediate.sh $x $y $granularity2 $outputfolder"
-	command sbatch --output="$outputfolder/batch-%j.out" intermediate.sh $x $y $granularity2
+	echo "running command branch.sh $x $y $granularity2 $outputfolder"
+	command sbatch --output="$outputfolder/batch-%j.out" branch.sh $x $y $granularity2
 	if [[ $count -eq $granularity1 ]]
 	then
 		break
